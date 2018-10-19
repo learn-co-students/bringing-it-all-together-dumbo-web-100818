@@ -47,6 +47,19 @@ class Dog
     end
   end
 
+  def self.find_or_create_by(given_value)
+
+    dog = DB[:conn].execute("SELECT * FROM dogs WHERE name = ?",given_value[:name])
+    if dog.empty?
+      return Dog.create(id: dog[0],name: dog[1],breed: dog[2])
+    else
+      return  Dog.new(id: dog[0],name: dog[1],breed: dog[2])
+    end
+  end
+
+
+
+
 
 
 
